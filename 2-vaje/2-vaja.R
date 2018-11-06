@@ -51,7 +51,9 @@ legend("bottomright", legend=c('diskretizacija eksponentne porazdelitve', 'ekspo
 # S = sum(1,N)Yi; N binomska
 
 panjer <- aggregateDist(method = 'recursive', model.freq = 'binom', model.sev = diskretna,
-              size = n, prob = p, x.scale = h, maxit = 10000, tol = 0.025)
+              size = n, prob = p, x.scale = h, maxit = 100000, tol = 0.025)
+
+plot(panjer)
 
 # d) upanje in varianca
 
@@ -67,7 +69,6 @@ simulacija_S <- c()
 for (i in simulacija_N){
   simulacija_S <- c(simulacija_S, sum(rexp(i, lambda)))
 }
-simulacija_S
 
 # b) upanje in varianca
 
@@ -80,4 +81,7 @@ plot(ecdf(simulacija_S),
      col = 'red',
      add = TRUE)
 
-# Vidimo da se grafa nekoliko razlikujeta
+legend('bottomright', 
+       legend = c('Panjer', 'Monte Carlo'),
+       col = c('black', 'red'),
+       lty=1:1, cex=0.9)
